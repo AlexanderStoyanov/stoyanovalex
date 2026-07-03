@@ -1,0 +1,19 @@
+@import "tailwindcss";
+
+@theme {
+	--color-sand-50: #faf7f2;
+	--color-sand-100: #f0ebe3;
+	--color-sand-200: #ddd5c9;
+	--color-sand-400: #b8a691;
+	--color-sand-500: #8b6b3d;
+	--color-sand-600: #6d5330;
+	--color-sand-700: #6b5c4d;
+	--color-sand-900: #2c2417;
+}
+
+@layer base {
+	html {
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+	}
+}

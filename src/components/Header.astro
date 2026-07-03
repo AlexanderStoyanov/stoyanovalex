@@ -1,0 +1,23 @@
+---
+const pathname = Astro.url.pathname;
+const isBlog = pathname.startsWith("/blog");
+---
+
+<header class="border-b border-sand-200">
+	<nav class="max-w-2xl mx-auto px-5 sm:px-6 py-5 flex justify-between items-center">
+		<a href="/" class="font-semibold text-sand-900 no-underline hover:text-sand-500 transition-colors">
+			Alex Stoyanov
+		</a>
+		<div class="flex gap-6">
+			<a
+				href="/blog"
+				class:list={[
+					"no-underline text-[0.95rem] transition-colors",
+					isBlog ? "text-sand-900" : "text-sand-700 hover:text-sand-900",
+				]}
+			>
+				Blog
+			</a>
+		</div>
+	</nav>
+</header>

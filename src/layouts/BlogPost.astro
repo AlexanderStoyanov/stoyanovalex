@@ -1,0 +1,83 @@
+---
+import Layout from "./Layout.astro";
+
+interface Props {
+	title: string;
+	description: string;
+	pubDate: Date;
+	updatedDate?: Date;
+}
+
+const { title, description, pubDate, updatedDate } = Astro.props;
+
+function formatDate(date: Date): string {
+	return date.toLocaleDateString("en-US", {
+		year: "numeric",
+		month: "long",
+		day: "numeric",
+		timeZone: "UTC",
+	});
+}
+---
+
+<Layout title={title} description={description} ogType="article">
+	<article>
+		<header class="mb-8">
+			<h1 class="text-2xl sm:text-3xl font-bold tracking-tight mb-2">{title}</h1>
+			<time datetime={pubDate.toISOString()} class="text-sand-700 text-sm">
+				{formatDate(pubDate)}
+			</time>
+			{
+				updatedDate && (
+					<span class="text-sand-700 text-sm italic ml-2">
+						(Updated: {formatDate(updatedDate)})
+					</span>
+				)
+			}
+		</header>
+		<div class="prose">
+			<slot />
+		</div>
+	</article>
+</Layout>
+
+<style>
+	@reference "../styles/global.css";
+	.prose :global(h2) {
+		@apply text-xl font-semibold tracking-tight mt-10 mb-3;
+	}
+	.prose :global(h3) {
+		@apply text-lg font-semibold tracking-tight mt-6 mb-2;
+	}
+	.prose :global(p) {
+		@apply mb-4 leading-relaxed;
+	}
+	.prose :global(a) {
+		@apply text-sand-500 underline hover:text-sand-600;
+	}
+	.prose :global(ul),
+	.prose :global(ol) {
+		@apply pl-6 mb-4;
+	}
+	.prose :global(li) {
+		@apply mb-1;
+	}
+	.prose :global(blockquote) {
+		@apply border-l-[3px] border-sand-200 pl-4 text-sand-700 mb-4;
+	}
+	.prose :global(code) {
+		@apply text-[0.875em] bg-sand-100 px-1.5 py-0.5 rounded;
+	}
+	.prose :global(pre) {
+		@apply bg-sand-100 p-4 rounded overflow-x-auto mb-4;
+	}
+	.prose :global(pre code) {
+		@apply bg-transparent p-0;
+	}
+	.prose :global(hr) {
+		@apply border-t border-sand-200 my-8;
+	}
+	.prose :global(img) {
+		@apply max-w-full h-auto rounded;
+	}
+</style>
