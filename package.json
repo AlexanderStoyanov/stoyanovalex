@@ -10,7 +10,7 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "deploy": "pnpm run build && pnpm dlx wrangler pages deploy dist",
+    "deploy": "pnpm run build && pnpm dlx wrangler pages deploy dist --project-name=stoyanovalex",
     "astro": "astro"
   },
   "dependencies": {
