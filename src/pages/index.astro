@@ -1,10 +1,11 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import { getCollection } from "astro:content";
+import GameCard from "../components/GameCard.astro";
+import { games } from "../data/games";
+import { getPublishedPosts } from "../lib/posts";
 
-const posts = (await getCollection("blog"))
-	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-	.slice(0, 5);
+const posts = (await getPublishedPosts()).slice(0, 5);
+const latestGame = games[0];
 
 function formatDate(date: Date): string {
 	return date.toLocaleDateString("en-US", {
@@ -24,6 +25,18 @@ function formatDate(date: Date): string {
 			technology, and things I find interesting.
 		</p>
 	</section>
+
+	{
+		latestGame && (
+			<section class="mb-12">
+				<h2 class="text-xl font-semibold tracking-tight mb-4">Latest game</h2>
+				<GameCard game={latestGame} />
+				<a href="/games" class="inline-block mt-4 text-[0.95rem] text-sand-500 no-underline hover:text-sand-600 hover:underline">
+					All games &rarr;
+				</a>
+			</section>
+		)
+	}
 
 	{
 		posts.length > 0 && (
