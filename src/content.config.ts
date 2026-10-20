@@ -9,6 +9,8 @@ const blog = defineCollection({
 		description: z.string(),
 		pubDate: z.coerce.date(),
 		updatedDate: z.coerce.date().optional(),
+		// Drafts are left out of the build entirely: no page, listing, RSS or sitemap entry.
+		draft: z.boolean().default(false),
 	}),
 });
 

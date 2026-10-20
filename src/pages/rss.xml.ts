@@ -1,23 +1,18 @@
 import rss from "@astrojs/rss";
-import { getCollection } from "astro:content";
+import { getPublishedPosts } from "../lib/posts";
 import type { APIContext } from "astro";
 
 export async function GET(context: APIContext) {
-	const posts = await getCollection("blog");
+	const posts = await getPublishedPosts();
 	return rss({
 		title: "Alex Stoyanov",
 		description: "Personal website and blog of Alex Stoyanov.",
 		site: context.site!,
-		items: posts
-			.sort(
-				(a, b) =>
-					b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
-			)
-			.map((post) => ({
-				title: post.data.title,
-				pubDate: post.data.pubDate,
-				description: post.data.description,
-				link: `/blog/${post.id}`,
-			})),
+		items: posts.map((post) => ({
+			title: post.data.title,
+			pubDate: post.data.pubDate,
+			description: post.data.description,
+			link: `/blog/${post.id}`,
+		})),
 	});
 }

@@ -2,6 +2,7 @@
 title: "Hi, I'm Alex"
 description: "A little about me — how I got into coding, my journey through ML and startups, and what I'm working on now."
 pubDate: 2026-07-03
+draft: true
 ---
 
 I'm a software engineer with 7 years of professional experience, a salary worker.

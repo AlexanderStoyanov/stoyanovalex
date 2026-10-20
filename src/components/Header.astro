@@ -1,6 +1,13 @@
 ---
+import { getPublishedPosts } from "../lib/posts";
+
 const pathname = Astro.url.pathname;
-const isBlog = pathname.startsWith("/blog");
+const hasPosts = (await getPublishedPosts()).length > 0;
+
+const links = [
+	{ href: "/games", label: "Games" },
+	...(hasPosts ? [{ href: "/blog", label: "Blog" }] : []),
+];
 ---
 
 <header class="border-b border-sand-200">
@@ -9,15 +16,19 @@ const isBlog = pathname.startsWith("/blog");
 			Alex Stoyanov
 		</a>
 		<div class="flex gap-6">
-			<a
-				href="/blog"
-				class:list={[
-					"no-underline text-[0.95rem] transition-colors",
-					isBlog ? "text-sand-900" : "text-sand-700 hover:text-sand-900",
-				]}
-			>
-				Blog
-			</a>
+			{
+				links.map(({ href, label }) => (
+					<a
+						href={href}
+						class:list={[
+							"no-underline text-[0.95rem] transition-colors",
+							pathname.startsWith(href) ? "text-sand-900" : "text-sand-700 hover:text-sand-900",
+						]}
+					>
+						{label}
+					</a>
+				))
+			}
 		</div>
 	</nav>
 </header>
